@@ -1,0 +1,5 @@
+std = "lua52"
+exclude = [
+    "/exclude/*",
+    "/external/*"
+]
