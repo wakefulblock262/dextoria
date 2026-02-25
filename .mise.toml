@@ -1,0 +1,27 @@
+[tools]
+stylua = "latest"
+"cargo:selene" = "latest"
+
+# tasks
+[tasks.run]
+description = "run a Lua script (e.g., mise run run -- src/main.lua)"
+run = "lua {{args}}"
+
+[tasks.parse]
+description = "parse source with StyLua"
+run = "stylua src/"
+
+[tasks.lint]
+description = "lint source with Selene"
+run = "selene src/"
+
+[tasks.obfuscate]
+description = "obfuscate source with Hercules"
+run = [
+    "lua tools/hercules/src/hercules.lua src/main.lua --max --overwrite",
+]
+
+[tasks.publish]
+description = "publish pipeline: parse > lint > obfuscate"
+depends = ["parse", "lint", "obfuscate"]
+run = "echo 'publish complete!'"
